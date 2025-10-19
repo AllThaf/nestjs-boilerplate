@@ -6,6 +6,8 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
+import path from 'path';
+import express from 'express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
 import { AppModule } from './app.module';
@@ -53,6 +55,12 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
+
+  // Serve static assets (CSS etc.) from files/public
+  app.use(
+    '/assets',
+    express.static(path.join(__dirname, '..', 'files', 'public', 'assets')),
+  );
 
   await app.listen(configService.getOrThrow('app.port', { infer: true }));
 }

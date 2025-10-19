@@ -1,0 +1,13 @@
+{% extends "layouts/base.njk" %}
+
+{% block title %}Home - {{ title }}{% endblock %}
+
+{% region "header-banner" %}
+  <strong>Default Theme Banner</strong>
+{% endregion %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+  <p>{{ message }}</p>
+  <p>Switch theme via ?theme=dark or header x-theme: dark</p>
+{% endblock %}

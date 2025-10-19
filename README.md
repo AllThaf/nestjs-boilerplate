@@ -71,3 +71,27 @@ Belongs to the [bc boilerplates](https://bcboilerplates.com/) ecosystem
 ## Support
 
 If you seek consulting, support, or wish to collaborate, please contact us via [boilerplates@brocoders.com](mailto:boilerplates@brocoders.com). For any inquiries regarding boilerplates, feel free to ask on [GitHub Discussions](https://github.com/brocoders/nestjs-boilerplate/discussions) or [Discord](https://discord.com/channels/520622812742811698/1197293125434093701).
+
+## View Templating (Layouts, Partials, Areas, Themes)
+
+This project includes a server-side templating system:
+
+- Template Engine Abstraction (Nunjucks adapter now, pluggable)
+- Layout & Partial
+- Area/Region (named content slots)
+- Theme System with fallback (e.g., default, dark)
+
+Where things live:
+
+- Config: `src/view/config/view.config.ts` (env vars: VIEW_ENGINE, VIEW_DEFAULT_THEME, VIEW_THEME_HEADER, VIEW_THEME_QUERY)
+- Engine: `src/view/engine` (Nunjucks implementation and custom tags: `region`/`renderregion`)
+- Services: `src/view/view.service.ts`, `src/view/theme.service.ts`
+- Themes and views: `src/view/themes/<theme>/views/{layouts,partials,pages}`
+- Example route: `GET /web/home` from `src/web/web.controller.ts`
+
+Switch theme:
+
+- Query: `/web/home?theme=dark`
+- Header: `x-theme: dark` (configurable)
+
+Static theme assets are served from `/assets` mapped to `files/public/assets`.

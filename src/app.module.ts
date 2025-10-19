@@ -7,6 +7,7 @@ import authConfig from './auth/config/auth.config';
 import appConfig from './config/app.config';
 import mailConfig from './mail/config/mail.config';
 import fileConfig from './files/config/file.config';
+import viewConfig from './view/config/view.config';
 import facebookConfig from './auth-facebook/config/facebook.config';
 import googleConfig from './auth-google/config/google.config';
 import appleConfig from './auth-apple/config/apple.config';
@@ -27,6 +28,7 @@ import { MailerModule } from './mailer/mailer.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MongooseConfigService } from './database/mongoose-config.service';
 import { DatabaseConfig } from './database/config/database-config.type';
+import { WebModule } from './web/web.module';
 
 // <database-block>
 const infrastructureDatabaseModule = (databaseConfig() as DatabaseConfig)
@@ -52,6 +54,7 @@ const infrastructureDatabaseModule = (databaseConfig() as DatabaseConfig)
         appConfig,
         mailConfig,
         fileConfig,
+        viewConfig,
         facebookConfig,
         googleConfig,
         appleConfig,
@@ -92,6 +95,7 @@ const infrastructureDatabaseModule = (databaseConfig() as DatabaseConfig)
     MailModule,
     MailerModule,
     HomeModule,
+    WebModule,
   ],
 })
 export class AppModule {}
