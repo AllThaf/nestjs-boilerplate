@@ -9,9 +9,13 @@
   </head>
   <body>
     <header>
-      <h1>Boilerplate</h1>
-  <div class="banner">{% renderregion "header-banner" %}</div>
-      {% include "partials/nav.njk" %}
+      <h1 class="sr-only">Boilerplate</h1>
+      <div class="banner">
+        <div class="container">
+          {% renderregion "header-banner" %}
+        </div>
+      </div>
+  {% include "partials/header.njk" %}
     </header>
     <main>
       {% block content %}{% endblock %}

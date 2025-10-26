@@ -19,7 +19,7 @@ import { ResolvePromisesInterceptor } from './utils/serializer.interceptor';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true });
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-  
+
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
   app.setBaseViewsDir(path.join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
@@ -66,6 +66,9 @@ async function bootstrap() {
     '/assets',
     express.static(path.join(__dirname, '..', 'files', 'public', 'assets')),
   );
+
+  // Serve client JS (main.js) from files/public/js so pages can load /js/main.js
+  app.use('/js', express.static(path.join(__dirname, '..', 'files', 'public', 'js')));
 
   await app.listen(configService.getOrThrow('app.port', { infer: true }));
 }
