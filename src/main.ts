@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import path from 'path';
 import express from 'express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -16,8 +17,12 @@ import { AllConfigType } from './config/config.type';
 import { ResolvePromisesInterceptor } from './utils/serializer.interceptor';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, { cors: true });
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
+  
+  app.useStaticAssets(path.join(__dirname, '..', 'public'));
+  app.setBaseViewsDir(path.join(__dirname, '..', 'views'));
+  app.setViewEngine('hbs');
   const configService = app.get(ConfigService<AllConfigType>);
 
   app.enableShutdownHooks();
