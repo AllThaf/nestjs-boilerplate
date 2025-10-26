@@ -12,9 +12,9 @@ export class HomeController {
   @Render('index')
   async home() {
     const data = await this.service.appInfo();
-    return { 
+    return {
       message: 'Welcome to Data Trader Premium',
-      ...data
+      ...data,
     };
   }
 
