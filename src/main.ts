@@ -31,7 +31,7 @@ async function bootstrap() {
   app.setGlobalPrefix(
     configService.getOrThrow('app.apiPrefix', { infer: true }),
     {
-      exclude: ['/'],
+      exclude: ['/', '/pricing'],
     },
   );
   app.enableVersioning({
