@@ -19,15 +19,15 @@ export class HomeController {
   async home(@Req() req: Request, @Res() res: Response) {
     const data = await this.service.appInfo();
     const theme = this.themeService.getTheme(req);
-    
+
     this.viewService.configure(theme);
-    
+
     const html = await this.viewService.render('pages/home.njk', {
       title: 'Data Trader Premium',
       message: 'Welcome to Data Trader Premium',
       ...data,
     });
-    
+
     res.send(html);
   }
 
@@ -35,15 +35,15 @@ export class HomeController {
   async pricing(@Req() req: Request, @Res() res: Response) {
     const data = await this.service.appInfo();
     const theme = this.themeService.getTheme(req);
-    
+
     this.viewService.configure(theme);
-    
+
     const html = await this.viewService.render('pages/pricing.njk', {
       title: 'Pricing - Data Trader Premium',
       message: 'Choose your plan',
       ...data,
     });
-    
+
     res.send(html);
   }
 
