@@ -15,6 +15,34 @@ export class HomeController {
     private themeService: ThemeService,
   ) {}
 
+  private getCompanyData() {
+    return {
+      companyName: 'Data Trader Premium',
+      tagline: 'Profit from Markets with Pro Traders',
+      currentYear: new Date().getFullYear().toString(),
+      subscriberCount: '770k+',
+      ctaText: 'Join Now',
+    };
+  }
+
+  private getHomePageData() {
+    return {
+      heroTitle: 'Profit from Markets<br>with Pro Traders',
+      heroSubtitle: 'Get Trade Alerts, Daily Analysis, and Educational Guides.',
+      heroDescription:
+        'Direct access to Expert traders with a proven track record ↗',
+    };
+  }
+
+  private getPricingPageData() {
+    return {
+      pricingHeroTitle:
+        'You\'ve seen the results.<br>Now it\'s <span class="text-green-500">your</span> turn',
+      pricingHeroSubtitle:
+        'Join thousands of successful traders who trust our signals',
+    };
+  }
+
   @Get()
   async home(@Req() req: Request, @Res() res: Response) {
     const data = await this.service.appInfo();
@@ -25,6 +53,8 @@ export class HomeController {
     const html = await this.viewService.render('pages/home.njk', {
       title: 'Data Trader Premium',
       message: 'Welcome to Data Trader Premium',
+      ...this.getCompanyData(),
+      ...this.getHomePageData(),
       ...data,
     });
 
@@ -41,6 +71,8 @@ export class HomeController {
     const html = await this.viewService.render('pages/pricing.njk', {
       title: 'Pricing - Data Trader Premium',
       message: 'Choose your plan',
+      ...this.getCompanyData(),
+      ...this.getPricingPageData(),
       ...data,
     });
 
