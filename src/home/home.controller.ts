@@ -5,6 +5,7 @@ import { Response, Request } from 'express';
 import { HomeService } from './home.service';
 import { ViewService } from '../view/view.service';
 import { ThemeService } from '../view/theme.service';
+import { TestimonialsService } from '../testimonials/testimonials.service';
 
 @ApiTags('Home')
 @Controller()
@@ -13,6 +14,7 @@ export class HomeController {
     private service: HomeService,
     private viewService: ViewService,
     private themeService: ThemeService,
+    private testimonialsService: TestimonialsService,
   ) {}
 
   private getCompanyData() {
@@ -27,7 +29,7 @@ export class HomeController {
 
   private getHomePageData() {
     return {
-      heroTitle: 'Profit from Markets<br>with Pro Traders',
+      heroTitle: 'Profit from Markets with Pro Traders',
       heroSubtitle: 'Get Trade Alerts, Daily Analysis, and Educational Guides.',
       heroDescription:
         'Direct access to Expert traders with a proven track record ↗',
@@ -50,12 +52,16 @@ export class HomeController {
 
     this.viewService.configure(theme);
 
+    // Fetch active testimonials
+    const testimonials = await this.testimonialsService.findAllActive();
+
     const html = await this.viewService.render('pages/home.njk', {
       title: 'Data Trader Premium',
       message: 'Welcome to Data Trader Premium',
       ...this.getCompanyData(),
       ...this.getHomePageData(),
       ...data,
+      testimonials,
     });
 
     res.send(html);

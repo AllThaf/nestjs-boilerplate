@@ -3,6 +3,7 @@ import {
   ClassSerializerInterceptor,
   ValidationPipe,
   VersioningType,
+  RequestMethod,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
@@ -31,7 +32,17 @@ async function bootstrap() {
   app.setGlobalPrefix(
     configService.getOrThrow('app.apiPrefix', { infer: true }),
     {
-      exclude: ['/', '/pricing'],
+      exclude: [
+        '/',
+        '/pricing',
+        '/web/home',
+        '/admin/testimonials',
+        '/admin/testimonials/create',
+        { path: '/admin/testimonials/:id/edit', method: RequestMethod.GET },
+        { path: '/admin/testimonials/:id', method: RequestMethod.GET },
+        { path: '/admin/testimonials/:id', method: RequestMethod.POST },
+        { path: '/admin/testimonials/:id/delete', method: RequestMethod.POST },
+      ],
     },
   );
   app.enableVersioning({

@@ -2,12 +2,14 @@ import { Controller, Get, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ThemeService } from '../view/theme.service';
 import { ViewService } from '../view/view.service';
+import { TestimonialsService } from '../testimonials/testimonials.service';
 
 @Controller('web')
 export class WebController {
   constructor(
     private readonly themeService: ThemeService,
     private readonly view: ViewService,
+    private readonly testimonialsService: TestimonialsService,
   ) {}
 
   @Get('home')
@@ -22,6 +24,9 @@ export class WebController {
       { href: '#faq', label: 'FAQ' },
     ];
 
+    // Fetch active testimonials
+    const testimonials = await this.testimonialsService.findAllActive();
+
     const html = await this.view.render('pages/home.njk', {
       title: 'Home Page',
       message:
@@ -32,6 +37,7 @@ export class WebController {
       },
       // additional template variables useful across pages
       navLinks,
+      testimonials,
       currentYear: new Date().getFullYear(),
       meta: {
         description: 'Premium trade alerts, analysis and education for traders',
