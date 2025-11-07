@@ -1,10 +1,11 @@
 {% extends "layouts/base.njk" %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8 max-w-2xl">
-  <h1 class="text-3xl font-bold mb-6 text-white">{{ action }} Testimonial</h1>
+<div class="pt-20">
+  <div class="container mx-auto px-4 py-8 max-w-2xl">
+    <h1 class="text-3xl font-bold mb-6">{{ action }} Testimonial</h1>
 
-  <form action="{% if testimonial %}/admin/testimonials/{{ testimonial.id }}{% else %}/admin/testimonials{% endif %}" method="POST" class="bg-gray-800 shadow-md rounded-lg p-6">
+    <form action="{% if testimonial %}/admin/testimonials/{{ testimonial.id }}{% else %}/admin/testimonials{% endif %}" method="POST" class="bg-gray-800 shadow-md rounded-lg p-6">
     <div class="mb-4">
       <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Name *</label>
       <input
