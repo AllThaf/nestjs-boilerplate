@@ -8,6 +8,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { diskStorage } from 'multer';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
+import * as fs from 'fs';
 
 import { FilesLocalService } from './files.service';
 
@@ -31,6 +32,12 @@ const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig)
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService<AllConfigType>) => {
+        // Ensure the upload directory exists
+        const uploadDir = '/tmp/files';
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+        }
+
         return {
           fileFilter: (request, file, callback) => {
             if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
@@ -48,7 +55,13 @@ const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig)
             callback(null, true);
           },
           storage: diskStorage({
-            destination: './files',
+            destination: (req, file, callback) => {
+              // Ensure directory exists for each upload
+              if (!fs.existsSync(uploadDir)) {
+                fs.mkdirSync(uploadDir, { recursive: true });
+              }
+              callback(null, uploadDir);
+            },
             filename: (request, file, callback) => {
               callback(
                 null,

@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { WebController } from './web.controller';
 import { ViewModule } from '../view/view.module';
-import { TestimonialsModule } from '../testimonials/testimonials.module';
 
 @Module({
-  imports: [ViewModule, TestimonialsModule],
+  imports: [ViewModule],
   controllers: [WebController],
 })
 export class WebModule {}

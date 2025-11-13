@@ -50,18 +50,18 @@ export class HomeController {
     const data = await this.service.appInfo();
     const theme = this.themeService.getTheme(req);
 
-    this.viewService.configure(theme);
-
-    // Fetch active testimonials
+    // Get active testimonials for display
     const testimonials = await this.testimonialsService.findAllActive();
+
+    this.viewService.configure(theme);
 
     const html = await this.viewService.render('pages/home.njk', {
       title: 'Data Trader Premium',
       message: 'Welcome to Data Trader Premium',
+      testimonials,
       ...this.getCompanyData(),
       ...this.getHomePageData(),
       ...data,
-      testimonials,
     });
 
     res.send(html);

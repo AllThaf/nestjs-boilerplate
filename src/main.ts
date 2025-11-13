@@ -35,7 +35,6 @@ async function bootstrap() {
       exclude: [
         '/',
         '/pricing',
-        '/web/home',
         '/admin/testimonials',
         '/admin/testimonials/create',
         { path: '/admin/testimonials/:id/edit', method: RequestMethod.GET },
