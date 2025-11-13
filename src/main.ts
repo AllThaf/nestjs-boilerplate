@@ -29,6 +29,22 @@ async function bootstrap() {
   const configService = app.get(ConfigService<AllConfigType>);
 
   app.enableShutdownHooks();
+
+  // Add simple cookie parser middleware
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use((req, res, next) => {
+    const cookies = {};
+    if (req.headers.cookie) {
+      req.headers.cookie.split(';').forEach((cookie) => {
+        const [key, val] = cookie.split('=');
+        cookies[key.trim()] = decodeURIComponent(val);
+      });
+    }
+    req.cookies = cookies;
+    next();
+  });
+
   app.setGlobalPrefix(
     configService.getOrThrow('app.apiPrefix', { infer: true }),
     {
@@ -37,6 +53,12 @@ async function bootstrap() {
         '/pricing',
         '/admin/testimonials',
         '/admin/testimonials/create',
+        '/web/home',
+        '/web/login',
+        '/web/register',
+        '/web/logout',
+        { path: '/web/login', method: RequestMethod.POST },
+        { path: '/web/register', method: RequestMethod.POST },
         { path: '/admin/testimonials/:id/edit', method: RequestMethod.GET },
         { path: '/admin/testimonials/:id', method: RequestMethod.GET },
         { path: '/admin/testimonials/:id', method: RequestMethod.POST },
