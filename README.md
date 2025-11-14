@@ -87,11 +87,11 @@ Where things live:
 - Engine: `src/view/engine` (Nunjucks implementation and custom tags: `region`/`renderregion`)
 - Services: `src/view/view.service.ts`, `src/view/theme.service.ts`
 - Themes and views: `src/view/themes/<theme>/views/{layouts,partials,pages}`
-- Example route: `GET /web/home` from `src/web/web.controller.ts`
+- Example route: `GET /home` from `src/web/web.controller.ts`
 
 Switch theme:
 
-- Query: `/web/home?theme=dark`
+- Query: `/home?theme=dark`
 - Header: `x-theme: dark` (configurable)
 
 Static theme assets are served from `/assets` mapped to `files/public/assets`.

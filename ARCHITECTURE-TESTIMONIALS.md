@@ -214,7 +214,7 @@ Redirect to /admin/testimonials
 ### Displaying Testimonials on Home Page
 
 ```
-GET /web/home
+GET /home
        │
        ▼
 WebController.home()

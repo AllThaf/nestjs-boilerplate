@@ -95,7 +95,7 @@ npm run start:dev
 
 ### Test 5: View on Frontend
 
-- [ ] Navigate to `http://localhost:3000/web/home`
+- [ ] Navigate to `http://localhost:3000/home`
 - [ ] Home page loads successfully
 - [ ] Active testimonials are displayed
 - [ ] Only testimonials with `isActive = true` are shown

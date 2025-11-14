@@ -34,7 +34,7 @@ Open your browser and navigate to:
 
 **Admin Panel:** http://localhost:3000/admin/testimonials
 
-**Home Page (with testimonials):** http://localhost:3000/web/home
+**Home Page (with testimonials):** http://localhost:3000/home
 
 ## Admin Interface Features
 
